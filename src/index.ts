@@ -8,8 +8,9 @@ import {
   resolveModel,
 } from './lib/ai.js'
 import { parseChatRequest } from './lib/contracts.js'
+import { verifyStytch, type StytchAuthEnv } from './middleware/verifyStytch.js'
 
-const app = new Hono()
+const app = new Hono<StytchAuthEnv>()
 
 app.get('/', (c) => {
   return c.text(
@@ -23,7 +24,7 @@ app.get('/', (c) => {
   )
 })
 
-app.post('/api/chat', async (c) => {
+app.post('/api/chat', verifyStytch, async (c) => {
   const payload = await c.req.json().catch(() => null)
   const parsed = parseChatRequest(payload)
 

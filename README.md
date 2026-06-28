@@ -26,6 +26,18 @@ npm run dev
 
 Set provider credentials (e.g. Vercel AI Gateway / OpenAI) in your environment.
 
+Set Stytch credentials so `/api/chat` can verify the iOS session before calling
+the model:
+
+```bash
+STYTCH_PROJECT_ID=project-test-...
+STYTCH_SECRET_KEY=secret-...
+```
+
+For Vercel, add both variables under Project Settings -> Environment Variables
+for Production, Preview, and Development. Test projects use
+`https://test.stytch.com`; live projects use `https://api.stytch.com`.
+
 ## `POST /api/chat`
 
 **Request** (UI message / `useChat` shape):
@@ -53,6 +65,7 @@ The model may call **`data_operation`**; CRUD runs on the **iPhone** (SwiftData)
 ```bash
 curl -s -N -X POST http://127.0.0.1:3000/api/chat \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $STYTCH_SESSION_TOKEN" \
   -d '{"id":"test","messages":[{"id":"1","role":"user","parts":[{"type":"text","text":"hi","state":"done"}]}],"trigger":"submit-message"}' | head -8
 ```
 

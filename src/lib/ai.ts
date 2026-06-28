@@ -8,7 +8,7 @@ import {
 import type { LegacyChatRequest, UIChatRequest } from './contracts.js'
 import { buildToolSetFromClient, type ClientToolsMap } from './client-tools.js'
 
-const defaultModelId = process.env.AI_DEFAULT_MODEL ?? 'openai/gpt-4.1-mini'
+const defaultModelId = process.env.AI_DEFAULT_MODEL ?? 'openai/gpt-5.4-mini'
 
 export { buildToolSetFromClient, type ClientToolsMap }
 
